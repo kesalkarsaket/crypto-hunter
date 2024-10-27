@@ -1,4 +1,3 @@
-import { makeStyles } from "@material-ui/core";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import AliceCarousel from "react-alice-carousel";
@@ -6,6 +5,7 @@ import { Link } from "react-router-dom";
 import { TrendingCoins } from "../../config/api";
 import { CryptoState } from "../../CryptoContext";
 import { numberWithCommas } from "../CoinsTable";
+import { useCarouselStyles } from "../../Styles";
 
 const Carousel = () => {
   interface Coin {
@@ -31,23 +31,7 @@ const Carousel = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currency]);
 
-  const useStyles = makeStyles((theme) => ({
-    carousel: {
-      height: "50%",
-      display: "flex",
-      alignItems: "center",
-    },
-    carouselItem: {
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      cursor: "pointer",
-      textTransform: "uppercase",
-      color: "white",
-    },
-  }));
-
-  const classes = useStyles();
+  const classes = useCarouselStyles();
 
   const items = trending.map((coin) => {
     let profit = coin?.price_change_percentage_24h >= 0;

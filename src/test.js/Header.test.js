@@ -1,18 +1,15 @@
 // Header.test.js
 
-import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { CryptoState } from "../CryptoContext";
-import Header from "./Header";
-import Authmodal from "./Authentication/Authmodal";
-import UserSidebar from "./Authentication/UserSidebar";
+import Header from "../components/Header";
 
 // Mock the CryptoState context
 jest.mock("../CryptoContext", () => ({
   CryptoState: jest.fn(),
 }));
 
-jest.mock("./Authentication/Authmodal", () => () => <div>Auth Modal</div>);
+// jest.mock("./Authentication/Authmodal", () => () => <div>Auth Modal</div>);
 jest.mock("./Authentication/UserSidebar", () => () => <div>User Sidebar</div>);
 
 describe("Header Component", () => {

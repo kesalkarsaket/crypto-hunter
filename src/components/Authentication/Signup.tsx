@@ -3,6 +3,7 @@ import { useState } from "react";
 import { CryptoState } from "../../CryptoContext";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
+import { strings } from "../../utils/constants";
 
 interface SignupProps {
   handleClose: () => void;
@@ -33,7 +34,7 @@ const Signup: React.FC<SignupProps> = ({ handleClose }) => {
       );
       setAlert({
         open: true,
-        message: `Sign Up Successful. Welcome ${result.user.email}`,
+        message: `${strings.signupSuccess} ${result.user.email}`,
         type: "success",
       });
       handleClose();
@@ -58,14 +59,14 @@ const Signup: React.FC<SignupProps> = ({ handleClose }) => {
       <TextField
         variant="outlined"
         type="email"
-        label="Enter Email"
+        label={strings.enterEmail}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         fullWidth
       />
       <TextField
         variant="outlined"
-        label="Enter Password"
+        label={strings.enterPass}
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
@@ -73,7 +74,7 @@ const Signup: React.FC<SignupProps> = ({ handleClose }) => {
       />
       <TextField
         variant="outlined"
-        label="Confirm Password"
+        label={strings.confirmPass}
         type="password"
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}

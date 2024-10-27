@@ -4,17 +4,10 @@ import Header from "./components/Header";
 import Homepage from "./pages/HomePage";
 import CoinPage from "./pages/CoinPage";
 import Alert from "./components/Alert";
-
-const useStyles = makeStyles({
-  App: {
-    backgroundColor: "#14161a",
-    color: "white",
-    minHeight: "100vh",
-  },
-});
+import { useAppStyles } from "./Styles";
 
 function App(): JSX.Element {
-  const classes = useStyles();
+  const classes = useAppStyles();
 
   return (
     <div className={classes.App}>

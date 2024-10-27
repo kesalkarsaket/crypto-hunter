@@ -8,62 +8,8 @@ import { auth, db } from "../../firebase";
 import { numberWithCommas } from "../CoinsTable";
 import { AiFillDelete } from "react-icons/ai";
 import { doc, setDoc } from "firebase/firestore";
-
-const useStyles = makeStyles({
-  container: {
-    width: 350,
-    padding: 25,
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-    fontFamily: "monospace",
-  },
-  profile: {
-    flex: 1,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    gap: "20px",
-    height: "92%",
-  },
-  logout: {
-    height: "8%",
-    width: "100%",
-    backgroundColor: "#EEBC1D",
-    marginTop: 20,
-  },
-  picture: {
-    width: 200,
-    height: 200,
-    cursor: "pointer",
-    backgroundColor: "#EEBC1D",
-    objectFit: "contain",
-  },
-  watchlist: {
-    flex: 1,
-    width: "100%",
-    backgroundColor: "grey",
-    borderRadius: 10,
-    padding: 15,
-    paddingTop: 10,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    gap: 12,
-    overflowY: "scroll",
-  },
-  coin: {
-    padding: 10,
-    borderRadius: 5,
-    color: "black",
-    width: "100%",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    backgroundColor: "#EEBC1D",
-    boxShadow: "0 0 3px black",
-  },
-});
+import { useSidebarStyles } from "../../Styles";
+import { strings } from "../../utils/constants";
 
 interface StateType {
   right: boolean;
@@ -76,7 +22,7 @@ interface CoinType {
 }
 
 export default function UserSidebar() {
-  const classes = useStyles();
+  const classes = useSidebarStyles();
   const [state, setState] = useState<StateType>({ right: false });
   const { user, setAlert, watchlist, coins, symbol } = CryptoState();
 
@@ -97,7 +43,7 @@ export default function UserSidebar() {
     setAlert({
       open: true,
       type: "success",
-      message: "Logout Successful!",
+      message: strings.logoutSuccess,
     });
     toggleDrawer("right", false);
   };
@@ -114,7 +60,7 @@ export default function UserSidebar() {
 
       setAlert({
         open: true,
-        message: `${coin.name} Removed from the Watchlist!`,
+        message: `${coin.name} ${strings.removeFromWatchlist}`,
         type: "success",
       });
     } catch (error: any) {

@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/core";
+import { useSelectButtonStyles } from "../Styles";
 
 interface SelectButtonProps {
   children: React.ReactNode;
@@ -6,34 +7,12 @@ interface SelectButtonProps {
   onClick: () => void;
 }
 
-const useStyles = makeStyles({
-  selectButton: {
-    border: "1px solid gold",
-    borderRadius: 5,
-    padding: 10,
-    paddingLeft: 20,
-    paddingRight: 20,
-    fontFamily: "Montserrat",
-    cursor: "pointer",
-    backgroundColor: (props: SelectButtonProps) =>
-      props.selected ? "gold" : "",
-    color: (props: SelectButtonProps) => (props.selected ? "black" : ""),
-    fontWeight: (props: SelectButtonProps) => (props.selected ? 700 : 500),
-    "&:hover": {
-      backgroundColor: "gold",
-      color: "black",
-    },
-    width: "22%",
-    textAlign: "center",
-  },
-});
-
 const SelectButton: React.FC<SelectButtonProps> = ({
   children,
   selected,
   onClick,
 }) => {
-  const classes = useStyles({
+  const classes = useSelectButtonStyles({
     selected,
     children: undefined,
     onClick: function (): void {

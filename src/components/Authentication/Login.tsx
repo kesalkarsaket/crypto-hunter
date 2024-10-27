@@ -3,6 +3,7 @@ import { useState } from "react";
 import { CryptoState } from "../../CryptoContext";
 import { auth } from "../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { strings } from "../../utils/constants";
 
 interface LoginProps {
   handleClose: () => void;
@@ -18,7 +19,7 @@ const Login: React.FC<LoginProps> = ({ handleClose }) => {
     if (!email || !password) {
       setAlert({
         open: true,
-        message: "Please fill all the Fields",
+        message: strings.fillAllFields,
         type: "error",
       });
       return;
@@ -28,7 +29,7 @@ const Login: React.FC<LoginProps> = ({ handleClose }) => {
       const result = await signInWithEmailAndPassword(auth, email, password);
       setAlert({
         open: true,
-        message: `Sign Up Successful. Welcome ${result.user.email}`,
+        message: `${strings.signinSuccess} ${result.user.email}`,
         type: "success",
       });
       handleClose();
@@ -53,14 +54,14 @@ const Login: React.FC<LoginProps> = ({ handleClose }) => {
       <TextField
         variant="outlined"
         type="email"
-        label="Enter Email"
+        label={strings.enterEmail}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         fullWidth
       />
       <TextField
         variant="outlined"
-        label="Enter Password"
+        label={strings.enterPass}
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}

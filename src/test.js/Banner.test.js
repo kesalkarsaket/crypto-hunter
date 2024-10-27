@@ -2,14 +2,14 @@
 
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import Banner from "./Banner";
+import Banner from "../components/Banner/Banner";
 
 // Mocking the Carousel component
-jest.mock("./Carousel", () => {
-  return function DummyCarousel() {
-    return <div>Mock Carousel</div>; // Mock implementation
-  };
-});
+// jest.mock("../Banner/Carousel", () => {
+//   return function DummyCarousel() {
+//     return <div>Mock Carousel</div>; // Mock implementation
+//   };
+// });
 
 describe("Banner Component", () => {
   test("renders without crashing", () => {

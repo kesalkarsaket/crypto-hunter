@@ -14,16 +14,8 @@ import {
 import { CryptoState } from "../CryptoContext";
 import Authmodal from "./Authentication/Authmodal";
 import UserSidebar from "./Authentication/UserSidebar";
-
-const useStyles = makeStyles((theme) => ({
-  title: {
-    flex: 1,
-    color: "gold",
-    fontFamily: "Montserrat",
-    fontWeight: "bold",
-    cursor: "pointer",
-  },
-}));
+import { useHeaderStyles } from "../Styles";
+import { strings } from "../utils/constants";
 
 const darkTheme = createTheme({
   palette: {
@@ -35,7 +27,7 @@ const darkTheme = createTheme({
 });
 
 const Header: React.FC = () => {
-  const classes = useStyles();
+  const classes = useHeaderStyles();
   const { currency, setCurrency, user } = CryptoState();
 
   return (
@@ -52,8 +44,8 @@ const Header: React.FC = () => {
               style={{ width: 100, height: 40, marginLeft: 15 }}
               onChange={(e) => setCurrency(e.target.value as string)}
             >
-              <MenuItem value="USD">USD</MenuItem>
-              <MenuItem value="INR">INR</MenuItem>
+              <MenuItem value={strings.usd}>{strings.usd}</MenuItem>
+              <MenuItem value={strings.inr}>{strings.inr}</MenuItem>
             </Select>
             {user ? <UserSidebar /> : <Authmodal />}
           </Toolbar>

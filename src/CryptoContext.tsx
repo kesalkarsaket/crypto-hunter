@@ -10,6 +10,7 @@ import { onAuthStateChanged, User } from "firebase/auth";
 import { onSnapshot, doc } from "firebase/firestore";
 import { auth, db } from "./firebase";
 import { CoinListNew } from "./config/api";
+import { strings } from "./utils/constants";
 
 interface AlertState {
   open: boolean;
@@ -48,7 +49,7 @@ interface CryptoProviderProps {
 const Crypto = createContext<CryptoContextType | undefined>(undefined);
 
 const CryptoContext: React.FC<CryptoProviderProps> = ({ children }) => {
-  const [currency, setCurrency] = useState<string>("USD");
+  const [currency, setCurrency] = useState<string>(strings.usd);
   const [symbol, setSymbol] = useState<string>("$");
   const [coins, setCoins] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -67,7 +68,7 @@ const CryptoContext: React.FC<CryptoProviderProps> = ({ children }) => {
       const { data } = await axios.get(CoinListNew());
       setCoins(data.data);
     } catch (error) {
-      console.error("Error fetching coins:", error);
+      console.error(`${strings.errorFetchCoins}`, error);
     }
     setLoading(false);
   };
@@ -79,7 +80,7 @@ const CryptoContext: React.FC<CryptoProviderProps> = ({ children }) => {
         if (coin.exists()) {
           setWatchlist(coin.data().coins);
         } else {
-          console.log("No Items in Watchlist");
+          console.log(`${strings.noItems}`);
         }
       });
 
@@ -117,7 +118,7 @@ const CryptoContext: React.FC<CryptoProviderProps> = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    setSymbol(currency === "INR" ? "₹" : "$");
+    setSymbol(currency === strings.inr ? "₹" : "$");
   }, [currency]);
 
   return (

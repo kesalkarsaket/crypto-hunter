@@ -10,32 +10,11 @@ import { CryptoState } from "../../CryptoContext";
 import { auth } from "../../firebase";
 import GoogleButton from "react-google-button";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  paper: {
-    width: 400,
-    backgroundColor: theme.palette.background.paper,
-    color: "white",
-    borderRadius: 10,
-  },
-  google: {
-    padding: 24,
-    paddingTop: 0,
-    display: "flex",
-    flexDirection: "column",
-    textAlign: "center",
-    gap: 20,
-    fontSize: 20,
-  },
-}));
+import { useAuthModalStyles } from "../../Styles";
+import { strings } from "../../utils/constants";
 
 export default function Authmodal() {
-  const classes = useStyles();
+  const classes = useAuthModalStyles();
   const [open, setOpen] = useState<boolean>(false);
 
   const { setAlert } = CryptoState();
@@ -61,7 +40,7 @@ export default function Authmodal() {
       .then((res) => {
         setAlert({
           open: true,
-          message: `Sign Up Successful. Welcome ${res.user?.email}`,
+          message: `${strings.signupSuccess} ${res.user?.email}`,
           type: "success",
         });
         handleClose();
@@ -116,8 +95,8 @@ export default function Authmodal() {
                 variant="fullWidth"
                 style={{ borderRadius: 10 }}
               >
-                <Tab label="Login" />
-                <Tab label="Sign Up" />
+                <Tab label={strings.login} />
+                <Tab label={strings.signup} />
               </Tabs>
             </AppBar>
             {value === 0 && <Login handleClose={handleClose} />}

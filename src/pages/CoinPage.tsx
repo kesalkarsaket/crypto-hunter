@@ -1,9 +1,4 @@
-import {
-  Button,
-  LinearProgress,
-  makeStyles,
-  Typography,
-} from "@material-ui/core";
+import { Button, LinearProgress, Typography } from "@material-ui/core";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
@@ -12,6 +7,8 @@ import { coinCapApi } from "../config/api";
 import { CryptoState } from "../CryptoContext";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import { useCoinPageStyles } from "../Styles";
+import { strings } from "../utils/constants";
 
 interface CoinDetail {
   id: string;
@@ -21,57 +18,6 @@ interface CoinDetail {
   marketCapUsd: string;
 }
 
-const useStyles = makeStyles((theme) => ({
-  container: {
-    display: "flex",
-    [theme.breakpoints.down("md")]: {
-      flexDirection: "column",
-      alignItems: "center",
-    },
-  },
-  sidebar: {
-    width: "30%",
-    [theme.breakpoints.down("md")]: {
-      width: "100%",
-    },
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    marginTop: 25,
-    borderRight: "2px solid grey",
-  },
-  heading: {
-    fontWeight: "bold",
-    marginBottom: 20,
-    fontFamily: "Montserrat",
-  },
-  description: {
-    width: "100%",
-    fontFamily: "Montserrat",
-    padding: 25,
-    paddingBottom: 15,
-    paddingTop: 0,
-    textAlign: "justify",
-  },
-  marketData: {
-    alignSelf: "start",
-    padding: 25,
-    paddingTop: 10,
-    width: "100%",
-    [theme.breakpoints.down("md")]: {
-      display: "flex",
-      justifyContent: "space-around",
-    },
-    [theme.breakpoints.down("sm")]: {
-      flexDirection: "column",
-      alignItems: "center",
-    },
-    [theme.breakpoints.down("xs")]: {
-      alignItems: "start",
-    },
-  },
-}));
-
 const CoinPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
@@ -80,7 +26,7 @@ const CoinPage: React.FC = () => {
   );
   const { symbol, user, watchlist, setAlert, wsPrices, setWsPrices, coins } =
     CryptoState();
-  const classes = useStyles();
+  const classes = useCoinPageStyles();
 
   const fetchCoinDetail = async () => {
     const { data } = await axios.get(coinCapApi(id!));
@@ -92,9 +38,6 @@ const CoinPage: React.FC = () => {
       fetchCoinDetail();
     }
   }, [coinDetail]);
-
-  console.log(wsPrices[`${coinDetail?.id}`], "wsprices");
-  console.log(coinDetail?.id, "coindetail");
 
   useEffect(() => {
     if (coinDetail?.id) {
@@ -130,7 +73,7 @@ const CoinPage: React.FC = () => {
       );
       setAlert({
         open: true,
-        message: `${coinDetail.name} Added to the Watchlist!`,
+        message: `${coinDetail.name} ${strings.addedToWatchlist}`,
         type: "success",
       });
     } catch (error: any) {
@@ -153,7 +96,7 @@ const CoinPage: React.FC = () => {
       );
       setAlert({
         open: true,
-        message: `${coinDetail.name} Removed from the Watchlist!`,
+        message: `${coinDetail.name}${strings.removeFromWatchlist}`,
         type: "success",
       });
     } catch (error: any) {
@@ -186,7 +129,7 @@ const CoinPage: React.FC = () => {
               Current Price: {symbol}{" "}
               {wsPrices[`${coinDetail?.id}`] != null
                 ? wsPrices[`${coinDetail?.id}`].toString()
-                : "N/A"}{" "}
+                : "0.00"}{" "}
             </Typography>
           </span>
 
@@ -207,7 +150,9 @@ const CoinPage: React.FC = () => {
               }}
               onClick={inWatchlist ? removeFromWatchlist : addToWatchlist}
             >
-              {inWatchlist ? "Remove from Watchlist" : "Add to Watchlist"}
+              {inWatchlist
+                ? `${strings.removeFromWatchlist}`
+                : `${strings.addedToWatchlist}`}
             </Button>
           )}
         </div>

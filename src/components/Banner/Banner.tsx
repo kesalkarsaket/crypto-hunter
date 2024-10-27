@@ -1,33 +1,9 @@
 import { Container, makeStyles, Typography } from "@material-ui/core";
 import Carousel from "./Carousel";
-
-const useStyles = makeStyles((theme) => ({
-  banner: {
-    backgroundImage: "url(./banner2.jpg)",
-  },
-  bannerContent: {
-    height: 400,
-    display: "flex",
-    flexDirection: "column",
-    paddingTop: 25,
-    justifyContent: "space-around",
-  },
-  tagline: {
-    display: "flex",
-    height: "40%",
-    flexDirection: "column",
-    justifyContent: "center",
-    textAlign: "center",
-  },
-  carousel: {
-    height: "50%",
-    display: "flex",
-    alignItems: "center",
-  },
-}));
+import { useBannerStyles } from "../../Styles";
 
 const Banner: React.FC = () => {
-  const classes = useStyles();
+  const classes = useBannerStyles();
 
   return (
     <div className={classes.banner}>

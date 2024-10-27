@@ -22,6 +22,8 @@ import {
 } from "chart.js";
 import { HistoricalChartNew } from "../config/api";
 import { Skeleton } from "@material-ui/lab";
+import { useCoinInfoStyles } from "../Styles";
+import { strings } from "../utils/constants";
 
 ChartJS.register(
   CategoryScale,
@@ -49,25 +51,7 @@ const CoinInfo: React.FC<CoinInfoProps> = ({ coin }) => {
   const { currency, wsPrices, symbol } = CryptoState();
   const [flag, setFlag] = useState<boolean>(false);
 
-  const useStyles = makeStyles((theme) => ({
-    container: {
-      width: "75%",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      marginTop: 25,
-      padding: 40,
-      [theme.breakpoints.down("md")]: {
-        width: "100%",
-        marginTop: 0,
-        padding: 20,
-        paddingTop: 0,
-      },
-    },
-  }));
-
-  const classes = useStyles();
+  const classes = useCoinInfoStyles();
 
   const fetchHistoricData = async (): Promise<void> => {
     const endDate = new Date();
@@ -107,14 +91,14 @@ const CoinInfo: React.FC<CoinInfoProps> = ({ coin }) => {
   return (
     <ThemeProvider theme={darkTheme}>
       <div className={classes.container}>
-        {coin && (
+        {coin ? (
           <Typography variant="h5" style={{ marginBottom: 20 }}>
-            {`Current Price: ${symbol} ${
-              wsPrices[`${coin.id}`] || (
-                <Skeleton variant="text" animation="wave" />
-              )
+            {`${strings.currentPrice} ${symbol} ${
+              wsPrices[`${coin.id}`] || 0.0
             }`}
           </Typography>
+        ) : (
+          <Skeleton variant="text" animation="wave" />
         )}
         {!historicData.length || !flag ? (
           <CircularProgress

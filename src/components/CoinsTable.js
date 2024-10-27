@@ -25,6 +25,8 @@ import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutline
 import { CryptoState } from "../CryptoContext";
 import { Skeleton } from "@material-ui/lab";
 import ShimmerUI from "./Shimmer";
+import { useCoinTableStyles } from "../Styles";
+import { strings } from "../utils/constants";
 export function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
@@ -36,23 +38,7 @@ export default function CoinsTable() {
 
   const { coins, loading, fetchCoins, wsPrices, setWsPrices } = CryptoState();
 
-  const useStyles = makeStyles({
-    row: {
-      backgroundColor: "#16171a",
-      cursor: "pointer",
-      "&:hover": {
-        backgroundColor: "#131111",
-      },
-      fontFamily: "Montserrat",
-    },
-    pagination: {
-      "& .MuiPaginationItem-root": {
-        color: "gold",
-      },
-    },
-  });
-
-  const classes = useStyles();
+  const classes = useCoinTableStyles();
   const navigate = useNavigate();
   const darkTheme = createTheme({
     palette: {
@@ -70,7 +56,7 @@ export default function CoinsTable() {
   useEffect(() => {
     if (coins.length > 0) {
       const assetIds = coins.map((coin) => coin.id).join(",");
-      const ws = new WebSocket("wss://ws.coincap.io/prices?assets=${assetIds}");
+      const ws = new WebSocket(`wss://ws.coincap.io/prices?assets=${assetIds}`);
 
       ws.onmessage = (event) => {
         const updatedPrices = JSON.parse(event.data);
@@ -130,7 +116,7 @@ export default function CoinsTable() {
           Cryptocurrency Prices by Market Cap
         </Typography>
         <TextField
-          label="Search For a Crypto Currency.."
+          label={strings.searchForCryto}
           variant="outlined"
           style={{ marginBottom: 20, width: "100%" }}
           onChange={(e) => setSearch(e.target.value)}
@@ -146,12 +132,12 @@ export default function CoinsTable() {
               <TableHead style={{ backgroundColor: "#EEBC1D" }}>
                 <TableRow>
                   {[
-                    "Symbol",
-                    "Name",
-                    "Price (USD)",
-                    "24h Change",
-                    "Market Cap",
-                    "Favorite Status",
+                    strings.symbol,
+                    strings.name,
+                    strings.priceInUsd,
+                    strings.hourChange,
+                    strings.marketcap,
+                    strings.favStatus,
                   ].map((head) => (
                     <TableCell
                       style={{
@@ -160,7 +146,7 @@ export default function CoinsTable() {
                         fontFamily: "Montserrat",
                       }}
                       key={head}
-                      align={head === "Symbol" ? "" : "right"}
+                      align={head === strings.symbol ? "" : "right"}
                     >
                       {head}
                     </TableCell>
