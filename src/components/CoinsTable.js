@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { useEffect, useState } from "react";
 import Pagination from "@material-ui/lab/Pagination";
 import {
   Container,
@@ -23,7 +22,6 @@ import { getFavorites, saveFavorites } from "../utils/useLocalStorage";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import { CryptoState } from "../CryptoContext";
-import { Skeleton } from "@material-ui/lab";
 import ShimmerUI from "./Shimmer";
 import { useCoinTableStyles } from "../Styles";
 import { strings } from "../utils/constants";

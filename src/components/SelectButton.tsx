@@ -1,4 +1,3 @@
-import { makeStyles } from "@material-ui/core";
 import { useSelectButtonStyles } from "../Styles";
 
 interface SelectButtonProps {

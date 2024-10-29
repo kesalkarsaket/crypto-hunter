@@ -1,4 +1,4 @@
-import { Container, makeStyles, Typography } from "@material-ui/core";
+import { Container, Typography } from "@material-ui/core";
 import Carousel from "./Carousel";
 import { useBannerStyles } from "../../Styles";
 

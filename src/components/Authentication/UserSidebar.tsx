@@ -1,5 +1,4 @@
 import React, { useState, MouseEvent, KeyboardEvent } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import { Avatar, Button } from "@material-ui/core";
 import { CryptoState } from "../../CryptoContext";

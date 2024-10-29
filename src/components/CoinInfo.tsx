@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import {
   CircularProgress,
   createTheme,
-  makeStyles,
   ThemeProvider,
   Typography,
 } from "@material-ui/core";
@@ -53,20 +52,22 @@ const CoinInfo: React.FC<CoinInfoProps> = ({ coin }) => {
 
   const classes = useCoinInfoStyles();
 
-  const fetchHistoricData = async (): Promise<void> => {
+  const fetchHistoricData = useCallback(async (): Promise<void> => {
     const endDate = new Date();
     const startDate = new Date();
     startDate.setDate(endDate.getDate() - days);
-
     const startTimestamp = getTimestamp(startDate);
     const endTimestamp = getTimestamp(endDate);
+
     if (!coin || !coin.id) return;
 
     const res = await fetch(
       HistoricalChartNew(coin?.id, startTimestamp, endTimestamp)
     );
     const data = await res.json();
+
     setFlag(true);
+
     let chartData = data?.data || [];
 
     // Add today's live price if available
@@ -74,12 +75,13 @@ const CoinInfo: React.FC<CoinInfoProps> = ({ coin }) => {
     if (livePrice) {
       chartData.push({ date: endDate.toISOString(), priceUsd: livePrice });
     }
+
     setHistoricData(chartData);
-  };
+  }, [days, coin, wsPrices]);
 
   useEffect(() => {
     fetchHistoricData();
-  }, [days, wsPrices]);
+  }, [days, wsPrices, fetchHistoricData]);
 
   const darkTheme = createTheme({
     palette: {

@@ -1,6 +1,6 @@
 import { Button, LinearProgress, Typography } from "@material-ui/core";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import CoinInfo from "../components/CoinInfo";
 import { coinCapApi } from "../config/api";
@@ -28,16 +28,16 @@ const CoinPage: React.FC = () => {
     CryptoState();
   const classes = useCoinPageStyles();
 
-  const fetchCoinDetail = async () => {
+  const fetchCoinDetail = useCallback(async () => {
     const { data } = await axios.get(coinCapApi(id!));
     setCoinDetail(data.data);
-  };
+  }, [id]);
 
   useEffect(() => {
     if (!coinDetail) {
       fetchCoinDetail();
     }
-  }, [coinDetail]);
+  }, [coinDetail, fetchCoinDetail]);
 
   useEffect(() => {
     if (coinDetail?.id) {
@@ -56,7 +56,7 @@ const CoinPage: React.FC = () => {
 
       return () => ws.close();
     }
-  }, [coinDetail, coins]);
+  }, [coinDetail, coins, setWsPrices]);
 
   const inWatchlist = coinDetail ? watchlist.includes(coinDetail.id) : false;
 

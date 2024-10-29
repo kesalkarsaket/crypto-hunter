@@ -6,11 +6,7 @@ import {
   Toolbar,
   Typography,
 } from "@material-ui/core";
-import {
-  createTheme,
-  makeStyles,
-  ThemeProvider,
-} from "@material-ui/core/styles";
+import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import { CryptoState } from "../CryptoContext";
 import Authmodal from "./Authentication/Authmodal";
 import UserSidebar from "./Authentication/UserSidebar";
