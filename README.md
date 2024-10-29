@@ -81,3 +81,6 @@ Make sure you have the following installed on your local machine:
    git clone https://github.com/kesalkarsaket/crypto-hunter.git
    ```
    (after cloning run npm i --force (apply force to install dependency is mandatory as there may be depedency conflicts that can arise))
+
+2. run project:
+  npm start    
