@@ -77,10 +77,16 @@ Make sure you have the following installed on your local machine:
 - to install any dependency at the start run npm i --force (apply force to install dependency is mandatory)
 
 1. **Clone the repository**:
+
    ```bash
    git clone https://github.com/kesalkarsaket/crypto-hunter.git
    ```
+
    (after cloning run npm i --force (apply force to install dependency is mandatory as there may be depedency conflicts that can arise))
 
 2. run project:
-  npm start    
+   npm start
+
+### Recent fixes
+
+1.  have added fixes pertaining to multiple api call for historic api (getting 429 requests) --> is now fixed (30-10-2024). You can clone now.
