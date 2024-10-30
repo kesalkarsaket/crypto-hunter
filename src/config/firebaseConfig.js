@@ -7,7 +7,7 @@ const firebaseConfig = {
   // messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
   // appId: process.env.REACT_APP_APP_ID,
 
-  apiKey: "IzaSyA4YvxWI4fZPGpsq7X4hOPMdGU_SWsPXPk",
+  apiKey: "AIzaSyA4YvxWI4fZPGpsq7X4hOPMdGU_SWsPXPk",
   authDomain: "crypto-app-e340b.firebaseapp.com",
   projectId: "crypto-app-e340b",
   storageBucket: "crypto-app-e340b.appspot.com",
