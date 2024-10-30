@@ -70,7 +70,6 @@ const CoinInfo: React.FC<CoinInfoProps> = ({ coin }) => {
 
     let chartData = data?.data || [];
 
-    // Add today's live price if available
     const livePrice = wsPrices[`${coin.id}`];
     if (livePrice) {
       chartData.push({ date: endDate.toISOString(), priceUsd: livePrice });
@@ -82,6 +81,37 @@ const CoinInfo: React.FC<CoinInfoProps> = ({ coin }) => {
   useEffect(() => {
     fetchHistoricData();
   }, [days]);
+
+  // Effect for real-time price updates
+  useEffect(() => {
+    if (coin && wsPrices[coin.id]) {
+      setHistoricData((prevData) => {
+        const currentDate = new Date().toISOString();
+
+        // Check if the last entry in historicData already has today's date
+        if (
+          prevData.length > 0 &&
+          prevData[prevData.length - 1].date.slice(0, 10) ===
+            currentDate.slice(0, 10)
+        ) {
+          // Update only the priceUsd for the latest date entry
+          return [
+            ...prevData.slice(0, -1),
+            {
+              date: prevData[prevData.length - 1].date,
+              priceUsd: String(wsPrices[coin.id]),
+            },
+          ];
+        }
+
+        // If the date has changed, add a new entry
+        return [
+          ...prevData,
+          { date: currentDate, priceUsd: String(wsPrices[coin.id]) },
+        ];
+      });
+    }
+  }, [wsPrices, coin]);
 
   const darkTheme = createTheme({
     palette: {
