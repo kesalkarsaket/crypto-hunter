@@ -90,3 +90,4 @@ Make sure you have the following installed on your local machine:
 ### Recent fixes
 
 1.  have added fixes pertaining to multiple api call for historic api (getting 429 requests) --> is now fixed (30-10-2024). You can clone now.
+2.  firebase api key fixes
