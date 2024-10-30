@@ -52,7 +52,7 @@ const CoinInfo: React.FC<CoinInfoProps> = ({ coin }) => {
 
   const classes = useCoinInfoStyles();
 
-  const fetchHistoricData = useCallback(async (): Promise<void> => {
+  const fetchHistoricData = async (): Promise<void> => {
     const endDate = new Date();
     const startDate = new Date();
     startDate.setDate(endDate.getDate() - days);
@@ -77,11 +77,11 @@ const CoinInfo: React.FC<CoinInfoProps> = ({ coin }) => {
     }
 
     setHistoricData(chartData);
-  }, [days, coin, wsPrices]);
+  };
 
   useEffect(() => {
     fetchHistoricData();
-  }, [days, wsPrices, fetchHistoricData]);
+  }, [days]);
 
   const darkTheme = createTheme({
     palette: {
